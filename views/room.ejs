@@ -23,8 +23,8 @@
          flex-wrap: wrap;
       }
       video{
-         height: 300px;
-         width: 400px;
+         height: 250px;
+         width: 250px;
          object-fit: cover;
          padding: 8px;
       }
@@ -36,14 +36,17 @@
          <div class="main__videos">
             <div id="video-grid">
             </div>
+         <div id="overlay">
+            <p id="label"></p>
+         </div>
          </div>
          <div class="main__controls">
             <div class="main__controls__block">
-               <div onclick="muteUnmute()" class="main__controls__button main__mute_button">
+               <div id="muteButton" class="main__controls__button main__mute_button">
                   <i class="fas fa-microphone"></i>
                   <span>Mute</span>
                </div>
-               <div onclick="playStop()" class="main__controls__button main__video_button" >
+               <div id="stopVideo" class="main__controls__button main__video_button" >
                   <i class="fas fa-video"></i>
                   <span>Video Off</span>
                </div>

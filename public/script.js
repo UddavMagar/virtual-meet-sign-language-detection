@@ -102,7 +102,8 @@ function addVideoStream(video, stream) {
             const [y,x,height,width] = boxs[i]
             const text = classs[i]
             label = labelMap[text]['name']
-            console.log(label)
+            document.getElementById("label").innerHTML = label;
+
 
         }
     }
@@ -135,60 +136,41 @@ const scrollToBottom = () => {
 }
 
 
-const muteUnmute = () => {
+const muteButton = document.querySelector("#muteButton");
+const stopVideo = document.querySelector("#stopVideo");
+muteButton.addEventListener("click", () => {
   const enabled = myVideoStream.getAudioTracks()[0].enabled;
   if (enabled) {
     myVideoStream.getAudioTracks()[0].enabled = false;
-    setUnmuteButton();
+    html = `<i class="unmute fas fa-microphone-slash"></i>
+     <span>Unmute</span>`;
+   
+    muteButton.innerHTML = html;
   } else {
-    setMuteButton();
     myVideoStream.getAudioTracks()[0].enabled = true;
+    html = `<i class=" fas fa-microphone"></i>
+     <span>Mute</span>`;
+    
+    muteButton.innerHTML = html;
   }
-}
+});
 
-const playStop = () => {
-  console.log('object')
-  let enabled = myVideoStream.getVideoTracks()[0].enabled;
-  if (enabled) {
+stopVideo.addEventListener("click", () => {
+const enabled = myVideoStream.getVideoTracks()[0].enabled;
+if (enabled) {
     myVideoStream.getVideoTracks()[0].enabled = false;
-    setPlayVideo()
+    html = `<i class="stop fas fa-video-slash"></i>
+    <span>Video On</span>`;
+    
+    stopVideo.innerHTML = html;
   } else {
-    setStopVideo()
     myVideoStream.getVideoTracks()[0].enabled = true;
+    html = `<i class=" fas fa-video"></i>
+     <span>Video Off</span>`;
+    
+    stopVideo.innerHTML = html;
   }
-}
-
-const setMuteButton = () => {
-  const html = `
-    <i class="fas fa-microphone"></i>
-    <span>Mute</span>
-  `
-  document.querySelector('.main__mute_button').innerHTML = html;
-}
-
-const setUnmuteButton = () => {
-  const html = `
-    <i class="unmute fas fa-microphone-slash"></i>
-    <span>Unmute</span>
-  `
-  document.querySelector('.main__mute_button').innerHTML = html;
-}
-
-const setStopVideo = () => {
-  const html = `
-    <i class="fas fa-video"></i>
-    <span>Video Off</span>
-  `
-  document.querySelector('.main__video_button').innerHTML = html;
-}
-
-const setPlayVideo = () => {
-  const html = `
-  <i class="stop fas fa-video-slash"></i>
-    <span>Video On</span>
-  `
-  document.querySelector('.main__video_button').innerHTML = html;
-}
+});
 
 const bend = document.querySelector('.main__endcall_button');
 bend.addEventListener('click', function(){
