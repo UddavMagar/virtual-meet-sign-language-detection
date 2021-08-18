@@ -15,25 +15,29 @@ const { v4: uuidV4 } = require('uuid')
 
 
 
-app.set('view engine', 'ejs')
-app.use(express.static('public'))
+app.set('view engine', 'ejs');
+app.use(express.static('public'));
 
-app.get('/views/', (req, res) => {
-  res.redirect(`/${uuidV4()}`)
-})
+app.get('/home2', function(req, res){
+  res.render('home2')
+});
+
+app.get('/', function(req, res){
+  // res.sendFile(path.resolve(__dirname) + "/views/home.html");
+  res.render('home');
+ });
+
+app.get('/room', (req, res) => {
+  res.redirect(`/${uuidV4()}`);
+});
 
 app.get('/:room', (req, res) => {
   res.render('room', { roomId: req.params.room })
-})
-
-app.get('/', function(req, res){
- // res.sendFile(path.resolve(__dirname) + "/views/home.html");
- res.render('home')
 });
 
-app.get('/views/user', function(req, res){
-  res.render('username')
-});
+
+
+
 
 io.on('connection', socket => {
   socket.on('join-room', (roomId, userId) => {
@@ -52,4 +56,4 @@ io.on('connection', socket => {
   })
 })
 
-server.listen(process.env.PORT||3030)
+server.listen(process.env.PORT||3030);

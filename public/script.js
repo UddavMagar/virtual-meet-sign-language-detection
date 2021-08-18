@@ -1,6 +1,7 @@
+
 const runCoco = async () => {
   // 3. TODO - Load network 
-  const net = await tf.loadGraphModel('https://livelong.s3.au-syd.cloud-object-storage.appdomain.cloud/model.json')
+  const net = await tf.loadGraphModel('https://detectsign.s3.jp-tok.cloud-object-storage.appdomain.cloud/model.json')
   console.log('hello')
 
   detect(net);
@@ -83,17 +84,28 @@ function addVideoStream(video, stream) {
       const expanded = casted.expandDims(0)
       const obj = await net.executeAsync(expanded);
       
-      const boxes = await obj[4].array()
-      const classes = await obj[5].array()
-      const scores = await obj[6].array()
+      const boxes = await obj[1].array()
+      const classes = await obj[2].array()
+      const scores = await obj[4].array()
       boxs = boxes[0]
       classs = classes[0]
       scoress = scores[0]
       const labelMap = {
-        1:{name:'ThumbsUp', color:'red'},
-        2:{name:'ThumbsDown', color:'yellow'},
-        3:{name:'ThankYou', color:'lime'},
-        4:{name:'LiveLong', color:'blue'},
+        1:{name:'thumbsup', color:'red'},
+        2:{name:'thumbsdown', color:'yellow'},
+        3:{name:'thankyou', color:'lime'},
+        4:{name:'livelong', color:'blue'},
+        5:{name:'father', color:'green'},
+        6:{name:'hello', color:'white'},
+        7:{name:'help', color:'black'},
+        8:{name:'left', color:'pink'},
+        9:{name:'more', color:'purple'},
+        10:{name:'name', color:'grey'},
+        11:{name:'right', color:'blue'},
+        12:{name:'toilet', color:'green'},
+        13:{name:'one', color:'red'},
+        14:{name:'peace', color:'yellow'},
+        15:{name:'nice', color:'crimson'},
       }
       
       for(let i=0; i<=boxs.length; i++){
@@ -117,16 +129,16 @@ function addVideoStream(video, stream) {
   videoGrid.append(video);
 }
 
-function endcalls(){
-  var answer = window.confirm("Do you want to end call?");
-if (answer) {
-   //window.location.href =
-   location.replace("http://localhost:3030/");
-}
-else {
-    
-}
-}
+// function endcalls(){
+// document.getElementById("#closee1");
+//  closee1.addEventListener("click",() => {
+
+ 
+//   // window.location.href ="http://localhost:30301/"
+//  location.replace("http://localhost:3030/");
+
+// });
+// }
 
 
 
@@ -148,7 +160,7 @@ muteButton.addEventListener("click", () => {
     muteButton.innerHTML = html;
   } else {
     myVideoStream.getAudioTracks()[0].enabled = true;
-    html = `<i class=" fas fa-microphone"></i>
+    html = `<i class="micro fas fa-microphone"></i>
      <span>Mute</span>`;
     
     muteButton.innerHTML = html;
@@ -165,13 +177,46 @@ if (enabled) {
     stopVideo.innerHTML = html;
   } else {
     myVideoStream.getVideoTracks()[0].enabled = true;
-    html = `<i class=" fas fa-video"></i>
+    html = `<i class="vid fas fa-video"></i>
      <span>Video Off</span>`;
     
     stopVideo.innerHTML = html;
   }
 });
 
+
+
+// const bend = document.querySelector("#bend");
+// bend.addEventListener('click', function(){
+
+//     endcalls();
+    
+// })
+
+// const invitebtn = document.querySelector("#invitebtn");
+// invitebtn.addEventListener("click", () => {
+//   document.getElementById("modalbody").innerHTML = 
+// window.location.href;
+// });
+
+// const mailbtn  = document.querySelector("#mailbtn");
+// invitebtn.addEventListener("click", () => {
+//   document.getElementById("modalbody34").innerHTML = 
+// window.location.href;
+// });
+// const formm = document.querySelector("#formm");
+// formm.addEventListener('click', function(){
+//   endcalls();
+// })
+
+// const formm= document.getElementById("#formm");
+//  formm.addEventListener("click",() => {
+
+ 
+//   // window.location.href ="http://localhost:30301/"
+//  location.replace("http://localhost:3030/");
+
+// });
 const bend = document.querySelector('.main__endcall_button');
 bend.addEventListener('click', function(){
 
@@ -179,13 +224,37 @@ bend.addEventListener('click', function(){
     
 })
 
+function endcalls(){
+  var answer = window.confirm("Do you want to end call?");
+if (answer) {
+   //window.location.href =
+   location.replace("/home2");
+}
+else {
+    
+}
+}
+
+//const hosthost = document.querySelector("#hosthost");
+ //hosthost.addEventListener('click', function(){
+   
+
+
+const inviteButton = document.querySelector("#inviteButton");
+inviteButton.addEventListener("click", (e) => {
+  prompt(
+    "Copy this link and send it to people you want to meet with",
+    window.location.href
+  );
+});
 
 };
 
-
-
-
 runCoco();
+
+
+
+
 
 
 
